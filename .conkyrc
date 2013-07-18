@@ -1,0 +1,123 @@
+#####################
+# - Conky settings - #
+######################
+update_interval 2
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 2
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+format_human_readable
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont Droid Sans:size=12
+override_utf8_locale yes
+text_buffer_size 2048
+
+#############################
+# - Window specifications - #
+#############################
+own_window_class Conky
+own_window yes
+own_window_type transparent
+own_window_argb_visual yes
+own_window_argb_value 150
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+alignment top_right
+gap_y 12 
+gap_x 12
+border_inner_margin 10
+
+minimum_size 330 1080
+maximum_width 330
+maximum_height 1080
+
+default_bar_size 92 6
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades yes
+default_shade_color 404040 
+default_color FFFFFF
+
+TEXT
+${font Droid Sans:style=Bold:size=12}SYSTEM $stippled_hr${font}
+##############
+# - SYSTEM - #
+##############
+${voffset 6}${font OpenLogos:size=23}u${voffset -10}${font Droid Sans:size=18}${alignc}${exec hostname}${font}
+${font}${goto 50}${voffset 10}Kernel: ${alignr 10}${font Droid Sans:style=Bold:size=12}${kernel}${font}
+${goto 50}Uptime: ${alignr 4}${font Droid Sans:style=Bold:size=12}${uptime}${font}
+${goto 50}Temp: ${alignr 4}${font Droid Sans:style=Bold:size=12}${exec sensors | grep -A2 asus-isa | grep -i temp1 | awk '{print $2}'}${font}
+${goto 50}Battery: ${goto 140}${battery_bar 12,40}${goto 190}${battery_short}%${alignr 4}${font Droid Sans:style=Bold:size=12}${battery_time}${font}
+# |--UPDATES
+${goto 50}Updates: ${alignr}${font Droid Sans:style=Bold:size=12}${execi 10800 apt-get --just-print upgrade | grep upgraded | grep installed | awk '{ print $1}'}${font} Packages
+# |--CPU
+${voffset 8}${font Droid Sans:style=Bold:size=12}CPU${font}${offset -30}${voffset 20}${cpubar cpu0 8,30}
+${voffset -40}${goto 50}Core 1: ${font Droid Sans:style=Bold:size=12}${cpu cpu1}%${font} ${goto 140}${cpubar cpu1 12,40 EEEEEE}${goto 190}${font Droid Sans:style=Bold:size=12}${cpu cpu5}%${font} ${goto 225}${cpubar cpu5 12,40 EEEEEE}${alignr}${exec sensors | grep -i core\ 0 | awk '{print $3}'}
+${voffset -3}${goto 50}Core 2: ${font Droid Sans:style=Bold:size=12}${cpu cpu2}%${font} ${goto 140}${cpubar cpu2 12,40 EEEEEE}${goto 190}${font Droid Sans:style=Bold:size=12}${cpu cpu6}%${font} ${goto 225}${cpubar cpu6 12,40 EEEEEE}${alignr}${exec sensors | grep -i core\ 1 | awk '{print $3}'}
+${voffset -3}${goto 50}Core 3: ${font Droid Sans:style=Bold:size=12}${cpu cpu3}%${font} ${goto 140}${cpubar cpu3 12,40 EEEEEE}${goto 190}${font Droid Sans:style=Bold:size=12}${cpu cpu7}%${font} ${goto 225}${cpubar cpu7 12,40 EEEEEE}${alignr}${exec sensors | grep -i core\ 2 | awk '{print $3}'}
+${voffset -3}${goto 50}Core 4: ${font Droid Sans:style=Bold:size=12}${cpu cpu4}%${font} ${goto 140}${cpubar cpu4 12,40 EEEEEE}${goto 190}${font Droid Sans:style=Bold:size=12}${cpu cpu8}%${font} ${goto 225}${cpubar cpu8 12,40 EEEEEE}${alignr}${exec sensors | grep -i core\ 3 | awk '{print $3}'}
+# |--MEM
+${voffset 8}${font Droid Sans:style=Bold:size=12}RAM${font}${goto 50}Usage: ${font Droid Sans:style=Bold:size=12}$memperc%${font}
+${membar 8,30}${voffset 4}${goto 50}${voffset -2}Free: ${font Droid Sans:style=Bold:size=12}${memeasyfree}${font} ${goto 180}Used: ${font Droid Sans:style=Bold:size=12}${mem}${font}
+# |--SWAP
+${voffset 8}${font Droid Sans:style=Bold:size=12}SWP${font}${goto 50}Usage: ${font Droid Sans:style=Bold:size=12}${swapperc}%${font}
+${swapbar 8,30}${voffset 4}${goto 50}${voffset -2}Free: ${font Droid Sans:style=Bold:size=12}$swapmax${font} ${goto 180}Used: ${font Droid Sans:style=Bold:size=12}$swap${font}
+# |--PROC
+${voffset 8}${font Droid Sans:style=Bold:size=12}TOP${font}${voffset 0}${goto 50}PROC${goto 186}CPU${alignr}RAM
+${voffset -4}${goto 50}${font Droid Sans:size=8}${top name 1}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 1}${alignr }${top mem 1}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 2}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 2}${alignr }${top mem 2}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 3}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 3}${alignr }${top mem 3}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 4}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 4}${alignr }${top mem 4}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 5}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 5}${alignr }${top mem 5}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 6}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 6}${alignr }${top mem 6}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 7}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 7}${alignr }${top mem 7}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 8}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 8}${alignr }${top mem 8}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 9}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 9}${alignr }${top mem 9}${font}
+${voffset -10}${goto 50}${font Droid Sans:size=8}${top name 10}${font Droid Sans:style=Bold:size=8} ${goto 180}${top cpu 10}${alignr }${top mem 10}${font}
+#############
+# - CLOCK - #
+#############
+${voffset 12}${font Droid Sans:style=Bold:size=12}DATE $stippled_hr${font}
+${font Droid Sans:size=28}${alignc}${time %H:%M}${font}
+${alignc}${time %d %B %Y}
+###############
+# - NETWORK - #
+###############
+${voffset 12}${font Droid Sans:style=Bold:size=12}NETWORK $stippled_hr${font}
+${voffset 4}${goto 20}Upload: ${font Droid Sans:style=Bold:size=12}${upspeed wlan0}${font} ${alignr}${upspeedgraph wlan0 12,60 EEEEEE}
+${goto 20}Overall: ${font Droid Sans:style=Bold:size=12}${totalup eth0}${font}
+${voffset 4}${goto 20}Download: ${font Droid Sans:style=Bold:size=12}${downspeed wlan0}${font} ${alignr}${downspeedgraph wlan0 12,60 EEEEEE}
+${goto 20}Overall: ${font Droid Sans:style=Bold:size=12}${totaldown wlan0}${font}
+${voffset 4}${goto 20}Local IP: ${alignr 4}${font Droid Sans:style=Bold:size=12}${addr wlan0}${font}
+${goto 20}Public IP: ${alignr 4}${font Droid Sans:style=Bold:size=12}${execi 10800 cat ~/.public-ip}${font}
+##########
+# - HD - #
+##########
+${voffset 12}${font Droid Sans:style=Bold:size=12}HDD $stippled_hr${font}
+# |--HD default
+${voffset 4}${goto 20}Root: ${font Droid Sans:style=Bold:size=12}${fs_used_perc /}%${font}${goto 100}${alignr}${fs_bar 6,100 /}
+${goto 30}Free: ${font Droid Sans:style=Bold:size=12}${fs_free /}${font} ${alignr 4}Used: ${font Droid Sans:style=Bold:size=12}${fs_used /}${font}
+${voffset 4}${goto 20}Home: ${font Droid Sans:style=Bold:size=12}${fs_used_perc /home}%${font}${goto 100}${alignr}${fs_bar 6,100 /home}
+${goto 30}Free: ${font Droid Sans:style=Bold:size=12}${fs_free /home}${font} ${alignr 4}Used: ${font Droid Sans:style=Bold:size=12}${fs_used /home}${font}
+# |--HDTEMP1
+${voffset 10}${goto 20}${voffset -4}Temperature: ${font Droid Sans:style=Bold:size=12}${execi 120 sudo hddtemp /dev/sda -n --unit=C}°C${font}${alignr}/dev/sda
+###########
+# - GFX - #
+###########
+#${voffset 16}${font Droid Sans:style=Bold:size=12}GFX $stippled_hr${font}
+#${voffset 4}${goto 20}Nvidia Temp: ${font Droid Sans:style=Bold:size=12}${nvidia temp}${font}
+###########
+# - Log - #
+###########
+${voffset 12}${font Droid Sans:style=Bold:size=12}LOG $stippled_hr${font}
+${font Droid Sans:size=8}${tail /var/log/syslog 10}

@@ -1,0 +1,22 @@
+[global_config]
+  title_hide_sizetext = True
+  borderless = True
+[keybindings]
+[profiles]
+  [[default]]
+    background_darkness = 0.8
+    use_system_font = False
+    font = Droid Sans Mono 12
+    background_type = transparent
+    foreground_color = "#00ff00"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+    [[[window0]]]
+      type = Window
+      parent = ""
+      size = 1520, 950
+[plugins]
