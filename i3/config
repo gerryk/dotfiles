@@ -217,6 +217,8 @@ bar {
         }
 }
 
+#exec i3dzen
+
 # Notification Daemon
 exec --no-startup-id dunst
 
