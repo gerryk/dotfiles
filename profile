@@ -4,4 +4,4 @@ alias vi=vim
 alias mount-nexus=go-mtpfs Android
 alias umount-nexus=fusermount -u Android
 export PATH=~/bin:$PATH
-export TERM=xterm-256color
+export TERM=screen-256color
