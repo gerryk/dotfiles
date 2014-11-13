@@ -1,0 +1,13 @@
+ll conky
+herbstclient pad 0 0
+echo 0 > ~/.config/herbstluftwm/dz
+herbstclient set frame_border_width 0
+herbstclient set window_border_normal_color '#000000'
+herbstclient set window_border_active_color '#060606'
+echo 3 > ~/.config/herbstluftwm/dcolor
+p
+herbstclient set window_gap 0
+echo 0 > ~/.config/herbstluftwm/gap
+herbstclient load '(split vertical::w0.900000:1 (clients max:0 0x8024d4) (clients horizontal:0 0x8024f4))'
+herbstclient keybind Mod4-Return spawn urxvtc -fg rgb:1e/1e/1e -bg rgb:00/00/00
+
