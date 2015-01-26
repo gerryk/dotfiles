@@ -1,12 +1,4 @@
 #!/bin/bash
-# ██ ████
-# ░██ █░░░░█
-# ░██ ██████ █████ ███████ ░░ ░█
-# ██████░░░░██ ██░░░██░░██░░░██ ███
-# ██░░░██ ██ ░███████ ░██ ░██ █░░
-# ░██ ░██ ██ ░██░░░░ ░██ ░██ █░
-# ░░██████ ██████░░██████ ███ ░██░██████
-# ░░░░░░ ░░░░░░ ░░░░░░ ░░░ ░░ ░░░░░░
 hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
 monitor=${1:-0}
 geometry=( $(herbstclient monitor_rect "$monitor") )
@@ -18,9 +10,9 @@ fi
 x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
-panel_height=18
-#font="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
-font="-Gohu-GohuFont-Medium-R-Normal--12-80-100-100-C-60-ISO10646-1"
+panel_height=22
+font="-*-fixed-medium-*-*-*-14-*-*-*-*-*-*-*"
+#font="-Gohu-GohuFont-Medium-R-Normal--12-80-100-100-C-60-ISO10646-1"
 #font2="-misc-stlarch-medium-r-normal--10-100-75-75-c-80-iso10646-1"
 bgcolor=$(hc get frame_border_normal_color)
 selbg='#6A8C8C'
@@ -36,6 +28,7 @@ else
     echo "This script requires the textwidth tool of the dzen2 project."
     exit 1
 fi
+
 ####
 # true if we are using the svn version of dzen2
 # depending on version/distribution, this seems to have version strings like
@@ -69,7 +62,7 @@ hc pad $monitor $panel_height
 while true ; do
 # "date" output is checked once a second, but an event is only
 # generated if the output changed compared to the previous run.
-date +$'date\t^bg(#666666) ^ca(1,~/code/sys/calendar)^fg(#d9d9d9)^i(~/gfx/icons/clock1.xbm) ^fg(#efefef)%H:%M^fg(#bcbcbc) %Y-%m-^fg(#efefef)%d^ca() '
+date +$'date\t^bg(#666666) ^ca(1,~/code/sys/calendar)^fg(#d9d9d9)^i(~/.gfx/icons/clock.xbm) ^fg(#efefef)%H:%M^fg(#bcbcbc) %Y-%m-^fg(#efefef)%d^ca() '
 sleep 1 || break
 done > >(uniq_linebuffered) &
 childpid=$!
@@ -116,7 +109,7 @@ for i in "${tags[@]}" ; do
 echo -n "^ca(1,\"${herbstclient_command[@]:-herbstclient}\" "
 echo -n "focus_monitor \"$monitor\" && "
 echo -n "\"${herbstclient_command[@]:-herbstclient}\" "
-#echo -n "use \"${i:1}\") ^i(/gfx/icons/stlarch_icons/diamond1.xbm) ^ca()"
+#echo -n "use \"${i:1}\") ^i(/.gfx/icons/stlarch_icons/diamond1.xbm) ^ca()"
 echo -n "use \"${i:1}\") ${i:1} ^ca()"
 else
 # non-clickable tags if using older dzen
@@ -139,7 +132,7 @@ then
 else
     temp="^fg($xfg)$temp"
 fi
-temp="^fg($xicon)^i(/home/gerryk/gfx/icons/temp.xbm) ^fg($xtitle)temp $temp^fg($xext)°c"
+temp="^fg($xicon)^i(/home/gerryk/.gfx/icons/temp.xbm) ^fg($xtitle)temp $temp^fg($xext)°c"
 #up time
 upSeconds=`cat /proc/uptime`;
 upSeconds=${upSeconds%%.*};
@@ -147,47 +140,47 @@ let secs=$((${upSeconds}%60))
 let mins=$((${upSeconds}/60%60))
 let hours=$((${upSeconds}/3600%24))
 let days=$((${upSeconds}/86400))
-uptime="^fg($xicon)^i(~/gfx/icons/uparrow1.xbm) ^fg($xtitle)uptime ^fg($xfg)${days}^fg($xext)d ^fg($xfg)${hours}^fg($xext)h ^fg($xfg)${mins}^fg($xext)m"
+uptime="^fg($xicon)^i(~/.gfx/icons/arch.xbm) ^fg($xtitle)uptime ^fg($xfg)${days}^fg($xext)d ^fg($xfg)${hours}^fg($xext)h ^fg($xfg)${mins}^fg($xext)m"
 #pacman updates
 updates=`pacman -Quq | wc -l`
-updates="^fg($xicon)^i(~/gfx/icons/pacman.xbm) ^fg($xtitle)pacman ^fg($xfg)$updates"
+updates="^fg($xicon)^i(~/.gfx/icons/pacman.xbm) ^fg($xtitle)pacman ^fg($xfg)$updates"
 #cpu
 cpu=`mpstat | awk '$3 ~ /CPU/ { for(i=1;i<=NF;i++) { if ($i ~ /%idle/) field=i } } $3 ~ /all/ { print 100 - $field }'`
-cpu="^fg($xicon)^i(~/gfx/icons/cpu1.xbm) ^fg($xtitle)cpu ^fg($xfg)$cpu^fg($xext)%"
+cpu="^fg($xicon)^i(~/.gfx/icons/cpu.xbm) ^fg($xtitle)cpu ^fg($xfg)$cpu^fg($xext)%"
 #memory
 mem=`free -om | awk '/Mem:/ {print int(($3 - $7 - $6) / $2 * 100)}'`
-mem="^fg($xicon)^i(~/gfx/icons/mem1.xbm) ^fg($xtitle)ram ^fg($xfg)$mem^fg($xext)%"
+mem="^fg($xicon)^i(~/.gfx/icons/mem.xbm) ^fg($xtitle)ram ^fg($xfg)$mem^fg($xext)%"
 #battery
-bat=`cat /sys/class/power_supply/BAT1/capacity`
-batstat=`cat /sys/class/power_supply/BAT1/status`
+bat=`cat /sys/class/power_supply/BAT0/capacity`
+batstat=`cat /sys/class/power_supply/BAT0/status`
 if (($batstat=='Charging'))
 then
-    batico="^i(~/gfx/icons/ac10.xbm)"
+    batico="^i(~/.gfx/icons/ac.xbm)"
 else
-    batico="^i(~/gfx/icons/batt5full.xbm)"
+    batico="^i(~/.gfx/icons/batt_full_01.xbm)"
 fi
 bat="^fg($xicon)$batico ^fg($xtitle)battery ^fg($xfg)$bat^fg($xext)%"
 #cyberspace
-# read lo int1 int2 <<< `ip link | sed -n 's/^[0-9]: \(.*\):.*$/\1/p'`
-# if iwconfig $int1 >/dev/null 2>&1; then
-# wifi=$int1
-# eth0=$int2
-# else
-# wifi=$int2
-# eth0=$int1
-# fi
-# ip link show $eth0 | grep 'state UP' >/dev/null && int=$eth0 || int=$wifi
-# if (($int==$wifi))
-# then
-# net="^fg($xicon)^i(/gfx/icons/stlarch_icons/wireless5.xbm) ^fg($xtitle)network ^fg($xfg)wifi"
-# elif (($int==$eth0))
-# then
-# net="^fg($xicon)^i(/gfx/icons/stlarch_icons/ac5.xbm) ^fg($xtitle)network ^fg($xfg)ethernet"
-# else
-# net="^fg($xicon)^i(/gfx/icons/stlarch_icons/dice5.xbm) ^fg($xtitle)network ^fg($xfg)disconnected"
-# fi
+read lo int1 int2 <<< `ip link | sed -n 's/^[0-9]: \(.*\):.*$/\1/p'`
+if iwconfig $int1 >/dev/null 2>&1; then
+  wifi=$int1
+  eth0=$int2
+else
+  wifi=$int2
+  eth0=$int1
+fi
+ip link show $eth0 | grep 'state UP' >/dev/null && int=$eth0 || int=$wifi
+if (($int==$wifi)); then
+  net="^fg($xicon)^i(/.gfx/icons/stlarch_icons/wifi_01.xbm) ^fg($xtitle)network ^fg($xfg)wifi"
+elif (($int==$eth0)); then
+  net="^fg($xicon)^i(/.gfx/icons/stlarch_icons/net_up_01.xbm) ^fg($xtitle)network ^fg($xfg)ethernet"
+else
+  net="^fg($xicon)^i(/.gfx/icons/stlarch_icons/net_down_01.xbm) ^fg($xtitle)network ^fg($xfg)disconnected"
+fi
 #combine
-right="^bg(#333333) $cpu $separator $mem $separator $temp $separator $bat $separator $updates $separator $uptime ^bg(#444444) $date $separator $separator"
+volume=$(~/.config/herbstluftwm/volume)
+vol="^i(~/.gfx/icons/spkr_01.xbm) volume $volume"
+right="^bg(#333333) $vol $seperator $cpu $separator $mem $separator $temp $separator $bat $separator $updates $net $seperator $separator $uptime ^bg(#444444) $date $separator $separator"
 right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
 # get width of right aligned text.. and add some space..
 width=$($textwidth "$font" "$right_text_only ")
