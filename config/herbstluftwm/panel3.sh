@@ -2,8 +2,8 @@
 
 BG="#121212"
 FG="#d9d9d9"
-CURE="-*-Ohsnap-*-*-*-*-11-*-*-*-*-*-*-*"
-SNAP="-*-Ohsnap-*-*-*-*-11-*-*-*-*-*-*-*"
+CURE="-*-Ohsnap-*-*-*-*-13-*-*-*-*-*-*-*"
+SNAP="-*-Ohsnap-*-*-*-*-13-*-*-*-*-*-*-*"
 
 BAR_OPS="-fg #d9d9d9 -bg #555555 -h 7 -w 25 -s o -ss 1 -sw 2"
 
@@ -30,7 +30,7 @@ NET_UP="$HOME/.gfx/icons/net_up_02.xbm"
 WIFI="$HOME/.gfx/icons/wifi_02.xbm"
 
 space(){
-	echo "^fn($SNAP)^fg(#555555) | ^fg()^fn()"
+	echo "^fn($SNAP)^fg(#555555)  |  ^fg()^fn()"
 }
 sysinfo(){
 	echo "^ca(3, $HOME/.dzen/script/sysinfo.sh)^fg(#80203d)^i($INFO)^fg() Info^ca()"

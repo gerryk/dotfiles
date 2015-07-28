@@ -1,0 +1,10 @@
+ background no
+ out_to_console yes
+ out_to_x no
+ update_interval 1.0
+ total_run_times 0
+ use_spacer none
+ 
+ TEXT
+   ^fg(\#002288) | ^fg(\#666666)CPU ^fg()${cpu} ^fg(\#002288) |  ^fg(\#666666)MEM ^fg()${mem} ^fg(\#002288) | ^fg(\#666666) BAT ^fg()${battery} ^fg(\#002288) | ^fg(\#666666) VOL ^fg()${mixer} ^fg(\#002288) |  ^fg()${time %a %b %d %I:%M%P}
+
